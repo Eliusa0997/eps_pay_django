@@ -1,39 +1,40 @@
-# # Byte-compiled / optimized / DLL files
-# __pycache__/
-# *.py[cod]
-# *$py.class
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# # Virtual environment
-# venv/
-# env/
-# ENV/
-# .venv/
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
 
-# # Django stuff
-# *.log
-# local_settings.py
-# db.sqlite3
-# db.sqlite3-journal
+# Django stuff
+eps_pay_django/settings.py
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
 
-# # Media and static files (optional - depends on setup)
-# media/
-# staticfiles/
+# Media and static files (optional - depends on setup)
+media/
+staticfiles/
 
-# # Environment variables
-# .env
+# Environment variables
+.env
 
-# # VS Code
-# .vscode/
+# VS Code
+.vscode/
 
-# # PyCharm
-# .idea/
+# PyCharm
+.idea/
 
-# # macOS
-# .DS_Store
+# macOS
+.DS_Store
 
-# # Windows
-# Thumbs.db
+# Windows
+Thumbs.db
 
-# # Migrations (optional - usually you DO commit these)
-# # */migrations/*
-# # !*/migrations/__init__.py
+# Migrations (optional - usually you DO commit these)
+# */migrations/*
+# !*/migrations/__init__.py
