@@ -10,7 +10,7 @@ ENV/
 .venv/
 
 # Django stuff
-eps_pay_django/settings.py
+# eps_pay_django/settings.py
 *.log
 local_settings.py
 db.sqlite3
