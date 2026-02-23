@@ -12,5 +12,5 @@ def register(request):
     if User.objects.filter(username=username).exists():
         return Response({'error': 'User already exists'}, status=400)
 
-    user = User.objects.create_user(username=username, password=password, email=email)
+    user = User.objects.create_user(username=username, password=password,email=email)
     return Response({'message': 'User created successfully'}, status=201)
