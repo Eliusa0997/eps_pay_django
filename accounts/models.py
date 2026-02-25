@@ -7,18 +7,29 @@ import random
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    account_number = models.IntegerField()
-    balance = models.IntegerField(default=1000)
+    account_number = models.IntegerField(unique=True)
+    balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
     # phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
+
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise ValidationError("Insufficient funds. Cannot withdraw beyond available balance.")
+        self.balance -= amount
+        self.save()
+
+    def deposit(self, amount):
+        self.balance += amount
+        self.save()
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(
             user=instance,
-            account_number=random.randint(1000, 9999),
+            account_number=random.randint(10000, 99999),
             balance=1000
         )
