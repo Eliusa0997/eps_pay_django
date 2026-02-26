@@ -27,8 +27,11 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/register/', register),
+    # profile
+    path('api/profile/', get_profile, name='get_profile'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # transactions
     path('api/transfer/', TransferView.as_view(), name='transfer'),
+
 ]

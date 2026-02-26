@@ -5,10 +5,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import random
 
-
-
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_number = models.IntegerField(unique=True)
