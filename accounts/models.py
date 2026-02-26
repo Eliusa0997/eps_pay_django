@@ -5,6 +5,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import random
 
+
+
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_number = models.IntegerField(unique=True)
@@ -25,11 +29,17 @@ class Profile(models.Model):
         self.balance += amount
         self.save()
 
+def generate_account_number():
+    last_profile = Profile.objects.order_by('-account_number').first()
+    if last_profile:
+        return last_profile.account_number + 1
+    return 10000
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(
             user=instance,
-            account_number=random.randint(10000, 99999),
+            account_number=generate_account_number(),
             balance=1000
         )
