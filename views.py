@@ -40,7 +40,7 @@ def get_profile(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def get_receiver_by_account(request):
+def get_receiver_by_account_number(request):
     account_number = request.data.get('account_number')
 
     if not account_number:
