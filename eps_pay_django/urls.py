@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from views import register, get_profile
+import views    
 from transactions.views import TransferView
 
 from rest_framework_simplejwt.views import (
@@ -33,5 +33,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # transactions
     path('api/transfer/', TransferView.as_view(), name='transfer'),
+    path('receiver/', views.get_receiver_by_account),
 
 ]

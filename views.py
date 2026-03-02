@@ -35,3 +35,34 @@ def get_profile(request):
     }
     
     return Response(data, status=status.HTTP_200_OK)
+
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def get_receiver_by_account(request):
+    account_number = request.data.get('account_number')
+
+    if not account_number:
+        return Response(
+            {"error": "Account number is required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        profile = Profile.objects.select_related('user').get(
+            account_number=account_number
+        )
+
+        data = {
+            "username": profile.user.username,
+            "account_number": profile.account_number,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
+    except Profile.DoesNotExist:
+        return Response(
+            {"error": "Receiver not found"},
+            status=status.HTTP_404_NOT_FOUND
+        )
