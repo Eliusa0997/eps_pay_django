@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import views    
+from views import register, get_profile, get_receiver_by_account
 from transactions.views import TransferView
 
 from rest_framework_simplejwt.views import (
