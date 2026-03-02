@@ -33,6 +33,6 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # transactions
     path('api/transfer/', TransferView.as_view(), name='transfer'),
-    path('api/receiver/',   get_receiver_by_account, name='get_receiver_by_account'),
+    path('api/getreceiver/',   get_receiver_by_account, name='get_receiver_by_account'),
 
 ]
