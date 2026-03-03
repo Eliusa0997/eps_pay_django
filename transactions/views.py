@@ -57,7 +57,7 @@ class WithdrawView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Deposit successful"},
+                {"message": "Withdraw successful"},
                 status=status.HTTP_200_OK
             )
 
