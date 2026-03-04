@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .serializers import TransferSerializer, DepositSerializer, WithdrawSerializer, ElectricitySerializer, WaterSerializer, InternetSerializer, MobileRechargeSerializer      
 
+# transfer payment  
 class TransferView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -23,8 +24,7 @@ class TransferView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
-
+# deposit payment                   
 class DepositView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -44,7 +44,7 @@ class DepositView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
+# withdraw payment              
 class WithdrawView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -65,7 +65,7 @@ class WithdrawView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
+# electricity payment           
 class ElectricityView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -85,7 +85,7 @@ class ElectricityView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
+# water payment         
 class WaterView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -105,7 +105,7 @@ class WaterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
+# internet payment      
 class InternetView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -125,7 +125,7 @@ class InternetView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
 
-
+# mobile recharge   
 class MobileRechargeView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -144,3 +144,13 @@ class MobileRechargeView(APIView):
     
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
+
+# transaction history   
+class UserTransactionListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TransactionSerializer
+
+    def get_queryset(self):
+        return Transaction.objects.filter(
+            profile=self.request.user.profile
+        ).order_by("-timestamp")

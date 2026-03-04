@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from views import register, get_profile, get_receiver_by_account_number
-from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView  
+from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView  , UserTransactionListView 
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -25,12 +25,15 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('api/register/', register),
+
     # profile
     path('api/profile/', get_profile, name='get_profile'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     # transactions
     path('api/transfer/', TransferView.as_view(), name='transfer'),
     path('api/receiver/',   get_receiver_by_account_number, name='get_receiver_by_account_number'),
@@ -39,6 +42,8 @@ urlpatterns = [
     path('api/electricity/', ElectricityView.as_view(), name='electricity'),
     path('api/water/', WaterView.as_view(), name='water'),
     path('api/internet/', InternetView.as_view(), name='internet'),
-    path('api/mobile-recharge/', MobileRechargeView.as_view(), name='mobile-recharge'), 
+    path('api/mobile-recharge/', MobileRechargeView.as_view(), name='mobile-recharge'),
+    # transaction history       
+    path('api/transactions/', UserTransactionListView.as_view(), name='user-transactions'), 
 
 ]
