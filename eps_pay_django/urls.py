@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from views import register, get_profile, get_receiver_by_account_number
-from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView  , UserTransactionListView 
+from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView, TransactionHistoryView 
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -44,6 +44,6 @@ urlpatterns = [
     path('api/internet/', InternetView.as_view(), name='internet'),
     path('api/mobile-recharge/', MobileRechargeView.as_view(), name='mobile-recharge'),
     # transaction history       
-    path('api/transactions/', UserTransactionListView.as_view(), name='user-transactions'), 
+    path('api/transaction-history/', TransactionHistoryView.as_view(), name='transaction-history'), 
 
 ]

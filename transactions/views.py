@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .serializers import TransferSerializer, DepositSerializer, WithdrawSerializer, ElectricitySerializer, WaterSerializer, InternetSerializer, MobileRechargeSerializer      
-
+from .models import Transaction
 # transfer payment  
 class TransferView(APIView):
     permission_classes = [IsAuthenticated]
@@ -146,11 +146,12 @@ class MobileRechargeView(APIView):
         print(request.data)
 
 # transaction history   
-class UserTransactionListView(ListAPIView):
+class TransactionHistoryView(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = TransactionSerializer
 
-    def get_queryset(self):
-        return Transaction.objects.filter(
-            profile=self.request.user.profile
+    def get(self, request):
+        transactions = Transaction.objects.filter(
+            profile=request.user.profile
         ).order_by("-timestamp")
+        serializer = TransactionSerializer(transactions, many=True)
+        return Response(serializer.data)    
