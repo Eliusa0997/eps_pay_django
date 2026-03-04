@@ -124,3 +124,147 @@ class WithdrawSerializer(serializers.Serializer):
             "amount": amount,
             "new_balance": profile.balance
         }
+
+
+class ElectricitySerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=12, decimal_places=2)
+
+    def validate(self, data):
+        if data['amount'] <= 0:
+            raise serializers.ValidationError("Amount must be greater than zero.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        amount = validated_data['amount']
+
+        with transaction.atomic():
+            profile = Profile.objects.select_for_update().get(
+                user=request.user
+            )
+
+            if profile.balance < amount:
+                raise serializers.ValidationError("Insufficient balance.")
+
+            profile.balance -= amount
+            profile.save()
+
+            Transaction.objects.create(
+                profile=profile,
+                transaction_type='electricity',
+                amount=amount
+            )
+
+        return {
+            "status": "success",
+            "amount": amount,
+            "new_balance": profile.balance
+        }
+
+
+class WaterSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=12, decimal_places=2)
+
+    def validate(self, data):
+        if data['amount'] <= 0:
+            raise serializers.ValidationError("Amount must be greater than zero.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        amount = validated_data['amount']
+
+        with transaction.atomic():
+            profile = Profile.objects.select_for_update().get(
+                user=request.user
+            )
+
+            if profile.balance < amount:
+                raise serializers.ValidationError("Insufficient balance.")
+
+            profile.balance -= amount
+            profile.save()
+
+            Transaction.objects.create(
+                profile=profile,
+                transaction_type='water',
+                amount=amount
+            )
+
+        return {
+            "status": "success",
+            "amount": amount,
+            "new_balance": profile.balance
+        }
+
+
+class InternetSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=12, decimal_places=2)
+
+    def validate(self, data):
+        if data['amount'] <= 0:
+            raise serializers.ValidationError("Amount must be greater than zero.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        amount = validated_data['amount']
+
+        with transaction.atomic():
+            profile = Profile.objects.select_for_update().get(
+                user=request.user
+            )
+
+            if profile.balance < amount:
+                raise serializers.ValidationError("Insufficient balance.")
+
+            profile.balance -= amount
+            profile.save()
+
+            Transaction.objects.create(
+                profile=profile,
+                transaction_type='internet',
+                amount=amount
+            )
+
+        return {
+            "status": "success",
+            "amount": amount,
+            "new_balance": profile.balance
+        }
+
+
+class MobileRechargeSerializer(serializers.Serializer):
+    amount = serializers.DecimalField(max_digits=12, decimal_places=2)
+
+    def validate(self, data):
+        if data['amount'] <= 0:
+            raise serializers.ValidationError("Amount must be greater than zero.")
+        return data
+
+    def create(self, validated_data):
+        request = self.context['request']
+        amount = validated_data['amount']
+
+        with transaction.atomic():
+            profile = Profile.objects.select_for_update().get(
+                user=request.user
+            )
+
+            if profile.balance < amount:
+                raise serializers.ValidationError("Insufficient balance.")
+
+            profile.balance -= amount
+            profile.save()
+
+            Transaction.objects.create(
+                profile=profile,
+                transaction_type='mobile_recharge',
+                amount=amount
+            )
+
+        return {
+            "status": "success",
+            "amount": amount,
+            "new_balance": profile.balance
+        }       

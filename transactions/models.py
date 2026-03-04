@@ -15,6 +15,10 @@ class Transaction(models.Model):
         ('deposit', 'Deposit'),
         ('withdraw', 'Withdraw'),
         ('transfer', 'Transfer'),
+        ('electricity', 'Electricity'),
+        ('water', 'Water'),
+        ('internet', 'Internet'),
+        ('mobile_recharge', 'Mobile Recharge'),
     )
 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="transactions")
