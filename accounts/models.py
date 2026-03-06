@@ -10,12 +10,12 @@ def generate_account_number():
     if last_profile:
         return last_profile.account_number + 1
     return 10000
-    
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_number = models.IntegerField(unique=True)
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
-    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    # phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
