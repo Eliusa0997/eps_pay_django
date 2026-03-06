@@ -291,11 +291,6 @@ class TransactionSerializer(serializers.ModelSerializer):
             "receiver_full_name"
         ]
 
-    def get_sender_full_name(self, obj):
-        if obj.sender and obj.sender.user:
-            return f"{obj.sender.user.first_name} {obj.sender.user.last_name}"
-        return None
-
     def get_receiver_full_name(self, obj):
         if obj.receiver and obj.receiver.user:
             return f"{obj.receiver.user.first_name} {obj.receiver.user.last_name}"
