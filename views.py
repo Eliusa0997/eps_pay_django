@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import Profile 
+from transactions.models import Transaction
+from transactions.serializers import TransactionSerializer  
 
 @api_view(['POST'])
 def register(request):
