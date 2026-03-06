@@ -5,6 +5,8 @@ from accounts.models import Profile
 from .models import Transaction
 
 
+from django.db import transaction
+
 class TransferSerializer(serializers.Serializer):
     account_number = serializers.IntegerField()
     amount = serializers.DecimalField(max_digits=12, decimal_places=2)
@@ -15,6 +17,7 @@ class TransferSerializer(serializers.Serializer):
         return data
 
     def create(self, validated_data):
+
         request = self.context['request']
         sender_profile = request.user.profile
 
@@ -32,23 +35,26 @@ class TransferSerializer(serializers.Serializer):
 
         with transaction.atomic():
 
-            # Deduct from sender
             sender_profile.balance -= amount
             sender_profile.save()
 
-            # Add to receiver
             receiver_profile.balance += amount
             receiver_profile.save()
 
-            # Record transactions
+            # sender transaction
             Transaction.objects.create(
                 profile=sender_profile,
+                sender=sender_profile,
+                receiver=receiver_profile,
                 transaction_type='transfer',
                 amount=amount
             )
 
+            # receiver transaction
             Transaction.objects.create(
                 profile=receiver_profile,
+                sender=sender_profile,
+                receiver=receiver_profile,
                 transaction_type='deposit',
                 amount=amount
             )
@@ -271,6 +277,27 @@ class MobileRechargeSerializer(serializers.Serializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+
+    sender_full_name = serializers.SerializerMethodField()
+    receiver_full_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Transaction
-        fields = '__all__'  
+        fields = [
+            "id",
+            "transaction_type",
+            "amount",
+            "timestamp",
+            "sender_full_name",
+            "receiver_full_name"
+        ]
+
+    def get_sender_full_name(self, obj):
+        if obj.sender and obj.sender.user:
+            return f"{obj.sender.user.first_name} {obj.sender.user.last_name}"
+        return None
+
+    def get_receiver_full_name(self, obj):
+        if obj.receiver and obj.receiver.user:
+            return f"{obj.receiver.user.first_name} {obj.receiver.user.last_name}"
+        return None

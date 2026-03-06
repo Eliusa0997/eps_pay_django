@@ -10,11 +10,15 @@ def register(request):
     username = request.data.get('username')
     email = request.data.get('email')
     password = request.data.get('password')
+    first_name = request.data.get('first_name')
+    last_name = request.data.get('last_name')
+    phone_number = request.data.get('phone_number')
 
     if User.objects.filter(username=username).exists():
         return Response({'error': 'User already exists'}, status=400)
 
-    user = User.objects.create_user(username=username, password=password,email=email)
+    user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name, phone_number=phone_number)
+    profile = Profile.objects.create(user=user, phone_number=phone_number)  
     return Response({'message': 'User created successfully'}, status=201)
 
 

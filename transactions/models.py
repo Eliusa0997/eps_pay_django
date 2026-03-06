@@ -21,6 +21,22 @@ class Transaction(models.Model):
         ('mobile_recharge', 'Mobile Recharge'),
     )
 
+    sender = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="sent_transactions",
+        null=True,
+        blank=True
+    )
+
+    receiver = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="received_transactions",
+        null=True,
+        blank=True
+    )
+
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="transactions")
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPES)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
