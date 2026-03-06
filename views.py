@@ -23,20 +23,32 @@ def register(request):
 
 
 @api_view(['GET'])
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Profile, Transaction
+from .serializers import TransactionSerializer
+
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_profile(request):
     """
-    Simple API to get profile data of logged-in user
+    API to get profile data and recent transactions of logged-in user
     """
     profile = request.user.profile
-    
+
+    # Get recent 5 transactions (latest first)
+    recent_transactions = Transaction.objects.filter(profile=profile).order_by('-timestamp')[:5]
+    transactions_serializer = TransactionSerializer(recent_transactions, many=True)
+
     data = {
         'username': request.user.username,
         'account_number': profile.account_number,
-        'balance': str(profile.balance),  # Convert to string for JSON
-        # 'phone_number': profile.phone_number,  # Uncomment if you add this field
+        'balance': str(profile.balance),  # Convert Decimal to string for JSON
+        'recent_transactions': transactions_serializer.data
     }
-    
+
     return Response(data, status=status.HTTP_200_OK)
 
 
