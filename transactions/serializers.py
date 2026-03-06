@@ -288,7 +288,6 @@ class TransactionSerializer(serializers.ModelSerializer):
             "transaction_type",
             "amount",
             "timestamp",
-            "sender_full_name",
             "receiver_full_name"
         ]
 
