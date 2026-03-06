@@ -279,7 +279,7 @@ class MobileRechargeSerializer(serializers.Serializer):
 class TransactionSerializer(serializers.ModelSerializer):
 
     receiver_full_name = serializers.SerializerMethodField()
-
+    sender_full_name = serializers.SerializerMethodField()  
     class Meta:
         model = Transaction
         fields = [
