@@ -175,6 +175,6 @@ class BillsTransactionsHistoryView(APIView):
             ]
         ).order_by('-timestamp')
 
-        serializer = BillTransactionSerializer(bill_transactions, many=True)
+        serializer = BillTransactionHistorySerializer(bill_transactions, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
