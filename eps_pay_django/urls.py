@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from views import register, get_profile, get_receiver_by_account_number
-# from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView, TransactionHistoryView 
-from transactions import views   
+from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView, TransactionHistoryView, BillsTransactionsHistoryView   
+
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
