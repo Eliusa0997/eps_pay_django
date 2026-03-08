@@ -298,3 +298,9 @@ class TransactionSerializer(serializers.ModelSerializer):
         if obj.receiver and obj.receiver.user:
             return f"{obj.receiver.user.first_name} {obj.receiver.user.last_name}"
         return None
+
+# Bill Transaction History Serializer
+class BillTransactionHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = ['transaction_type', 'amount', 'timestamp',]        

@@ -2,8 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .serializers import TransferSerializer, DepositSerializer, WithdrawSerializer, ElectricitySerializer, WaterSerializer, InternetSerializer, MobileRechargeSerializer, TransactionSerializer 
+# from .serializers import TransferSerializer, DepositSerializer, WithdrawSerializer, ElectricitySerializer, WaterSerializer, InternetSerializer, MobileRechargeSerializer, TransactionSerializer 
 from .models import Transaction
+from transactions import serializers
 # transfer payment  
 class TransferView(APIView):
     permission_classes = [IsAuthenticated]
@@ -155,3 +156,34 @@ class TransactionHistoryView(APIView):
         ).order_by("-timestamp")
         serializer = TransactionSerializer(transactions, many=True)
         return Response(serializer.data)    
+
+
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Transaction
+from .serializers import BillTransactionSerializer
+
+
+# bills transactions history    
+class BillsTransactionsHistoryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        profile = request.user.profile
+
+        bill_transactions = Transaction.objects.filter(
+            profile=profile,
+            transaction_type__in=[
+                'electricity',
+                'water',
+                'internet',
+                'mobile_recharge'
+            ]
+        ).order_by('-timestamp')
+
+        serializer = BillTransactionSerializer(bill_transactions, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
