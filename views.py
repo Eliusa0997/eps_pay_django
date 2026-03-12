@@ -39,6 +39,8 @@ def get_profile(request):
         'full_name': f"{request.user.first_name} {request.user.last_name}",
         'account_number': profile.account_number,
         'balance': str(profile.balance),  # Convert Decimal to string for JSON
+        'email': request.user.email,
+        'date_joined': request.user.date_joined,   
         'recent_transactions': transactions_serializer.data
     }
 
