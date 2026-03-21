@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from views import register, get_profile, get_receiver_by_account_number
+from views import register, get_profile, get_receiver_by_account_number, save_fcm_token
 from transactions.views import TransferView, DepositView, WithdrawView, ElectricityView, WaterView, InternetView, MobileRechargeView, TransactionHistoryView, BillsTransactionsHistoryView   
 
 
@@ -48,5 +48,6 @@ urlpatterns = [
     path('api/transaction-history/', TransactionHistoryView.as_view(), name='transaction-history'), 
     # bills transaction history
     path('api/bills-transaction-history/', BillsTransactionsHistoryView.as_view(), name='bills-transaction-history'),
-
+    # save fcm token
+    path('api/save-fcm-token/', save_fcm_token, name='save_fcm_token'),
 ]

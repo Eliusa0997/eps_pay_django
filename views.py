@@ -76,3 +76,15 @@ def get_receiver_by_account_number(request):
             {"error": "Receiver not found"},
             status=status.HTTP_404_NOT_FOUND
         )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def save_fcm_token(request):
+    fcm_token = request.data.get("fcm_token")
+
+    profile = request.user.profile
+    profile.fcm_token = fcm_token
+    profile.save()
+
+    return Response({"message": "FCM token saved successfully"})

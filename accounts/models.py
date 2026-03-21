@@ -15,6 +15,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     account_number = models.IntegerField(unique=True)
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=0.00)
+    fcm_token = models.TextField(blank=True, null=True)
     # phone_number = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
