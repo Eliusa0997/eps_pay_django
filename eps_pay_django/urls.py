@@ -49,5 +49,5 @@ urlpatterns = [
     # bills transaction history
     path('api/bills-transaction-history/', BillsTransactionsHistoryView.as_view(), name='bills-transaction-history'),
     # save fcm token
-    path('api/save-fcm-token/', save_fcm_token, name='save_fcm_token'),
+    path('api/sent-fcm-token/', save_fcm_token, name='save_fcm_token'),
 ]
