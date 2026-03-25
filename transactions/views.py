@@ -178,3 +178,17 @@ class BillsTransactionsHistoryView(APIView):
         serializer = BillTransactionHistorySerializer(bill_transactions, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+        
+
+
+# for fcm notification
+
+# from .utils import send_fcm_notification
+
+# send_fcm_notification(
+#     receiver.profile.fcm_token,
+#     "EPSPay",
+#     f"You received {amount} SDG"
+# )
