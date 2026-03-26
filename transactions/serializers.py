@@ -3,6 +3,7 @@ from django.db import transaction
 from django.core.exceptions import ValidationError
 from accounts.models import Profile
 from .models import Transaction
+from utils import send_fcm_notification
 
 
 from django.db import transaction
@@ -58,6 +59,15 @@ class TransferSerializer(serializers.Serializer):
                 transaction_type='deposit',
                 amount=amount
             )
+
+            # for fcm notification
+
+            send_fcm_notification(
+                receiver_profile.fcm_token,
+                "EPSPay",
+                f"You received {amount} SDG"
+            )
+
 
         return validated_data
 

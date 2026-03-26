@@ -3,7 +3,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
 SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"
-PROJECT_ID = "YOUR_PROJECT_ID"
+PROJECT_ID = "eps_pay_django"
 
 SCOPES = ["https://www.googleapis.com/auth/firebase.messaging"]
 

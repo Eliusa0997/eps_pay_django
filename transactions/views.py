@@ -183,12 +183,3 @@ class BillsTransactionsHistoryView(APIView):
         
 
 
-# for fcm notification
-
-# from .utils import send_fcm_notification
-
-# send_fcm_notification(
-#     receiver.profile.fcm_token,
-#     "EPSPay",
-#     f"You received {amount} SDG"
-# )
