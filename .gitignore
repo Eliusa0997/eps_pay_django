@@ -15,7 +15,7 @@ ENV/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-serviceAccountKey.json  
+# serviceAccountKey.json  
 
 # Media and static files (optional - depends on setup)
 media/
