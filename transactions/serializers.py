@@ -64,7 +64,7 @@ class TransferSerializer(serializers.Serializer):
 
             send_fcm_notification(
                 receiver_profile.fcm_token,
-                "EPSPay",
+                "EpsPay",
                 f"You received {amount} SDG from {sender_profile.user.first_name}"
             )
 
