@@ -73,7 +73,7 @@ def get_receiver_by_account_number(request):
 
     except Profile.DoesNotExist:
         return Response(
-            {"error": "Receiver not found"},
+            {"error": "The account number does not exist"},
             status=status.HTTP_404_NOT_FOUND
         )
 

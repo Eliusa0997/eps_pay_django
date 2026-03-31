@@ -14,7 +14,7 @@ class TransferSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'error':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -27,12 +27,12 @@ class TransferSerializer(serializers.Serializer):
                 account_number=validated_data['account_number']
             )
         except Profile.DoesNotExist:
-            raise serializers.ValidationError("Receiver not found.")
+            raise serializers.ValidationError({ 'error':"Receiver not found."})
 
         amount = validated_data['amount']
 
         if sender_profile.balance < amount:
-            raise serializers.ValidationError("Insufficient balance.")
+            raise serializers.ValidationError({'error':"Insufficient balance."})
 
         with transaction.atomic():
 
