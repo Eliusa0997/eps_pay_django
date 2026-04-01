@@ -14,7 +14,7 @@ class TransferSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError({'error':"Amount must be greater than zero."})
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -27,12 +27,12 @@ class TransferSerializer(serializers.Serializer):
                 account_number=validated_data['account_number']
             )
         except Profile.DoesNotExist:
-            raise serializers.ValidationError({ 'error':"Receiver not found."})
+            raise serializers.ValidationError({ 'detail':"The account number does not exist."})
 
         amount = validated_data['amount']
 
         if sender_profile.balance < amount:
-            raise serializers.ValidationError({'error':"Insufficient balance."})
+            raise serializers.ValidationError({'detail':"Insufficient balance."})
 
         with transaction.atomic():
 
@@ -77,7 +77,7 @@ class DepositSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -111,7 +111,7 @@ class WithdrawSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -124,7 +124,7 @@ class WithdrawSerializer(serializers.Serializer):
             )
 
             if profile.balance < amount:
-                raise serializers.ValidationError("Insufficient balance.")
+                raise serializers.ValidationError({'detail':"Insufficient balance."})
 
             profile.balance -= amount
             profile.save()
@@ -147,7 +147,7 @@ class ElectricitySerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -160,7 +160,7 @@ class ElectricitySerializer(serializers.Serializer):
             )
 
             if profile.balance < amount:
-                raise serializers.ValidationError("Insufficient balance.")
+                raise serializers.ValidationError({'detail':"Insufficient balance."})  
 
             profile.balance -= amount
             profile.save()
@@ -183,7 +183,7 @@ class WaterSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})  
         return data
 
     def create(self, validated_data):
@@ -196,7 +196,7 @@ class WaterSerializer(serializers.Serializer):
             )
 
             if profile.balance < amount:
-                raise serializers.ValidationError("Insufficient balance.")
+                raise serializers.ValidationError({'detail':"Insufficient balance."})
 
             profile.balance -= amount
             profile.save()
@@ -219,7 +219,7 @@ class InternetSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -232,7 +232,7 @@ class InternetSerializer(serializers.Serializer):
             )
 
             if profile.balance < amount:
-                raise serializers.ValidationError("Insufficient balance.")
+                raise serializers.ValidationError({'detail':"Insufficient balance."})
 
             profile.balance -= amount
             profile.save()
@@ -255,7 +255,7 @@ class MobileRechargeSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['amount'] <= 0:
-            raise serializers.ValidationError("Amount must be greater than zero.")
+            raise serializers.ValidationError({'detail':"Amount must be greater than zero."})
         return data
 
     def create(self, validated_data):
@@ -268,7 +268,7 @@ class MobileRechargeSerializer(serializers.Serializer):
             )
 
             if profile.balance < amount:
-                raise serializers.ValidationError("Insufficient balance.")
+                raise serializers.ValidationError({'detail':"Insufficient balance."})  
 
             profile.balance -= amount
             profile.save()
