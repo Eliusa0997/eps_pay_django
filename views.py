@@ -16,7 +16,7 @@ def register(request):
     last_name = request.data.get('last_name')
 
     if User.objects.filter(username=username).exists():
-        return Response({'error': 'User already exists'}, status=400)
+        return Response({'detail': 'User already exists'}, status=400)
 
     user = User.objects.create_user(username=username, password=password,email=email, first_name=first_name, last_name=last_name)
     return Response({'message': 'User created successfully'}, status=201)
@@ -55,7 +55,7 @@ def get_receiver_by_account_number(request):
 
     if not account_number:
         return Response(
-            {"error": "Account number is required"},
+            {"detail": "Account number is required"},
             status=status.HTTP_400_BAD_REQUEST
         )
 
@@ -73,7 +73,7 @@ def get_receiver_by_account_number(request):
 
     except Profile.DoesNotExist:
         return Response(
-            {"error": "The account number does not exist"},
+            {"detail": "The account number does not exist"},
             status=status.HTTP_404_NOT_FOUND
         )
 
