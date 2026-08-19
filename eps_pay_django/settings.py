@@ -27,7 +27,8 @@ DEBUG = True
 # DEBUG = False
 # ignore 4
 ALLOWED_HOSTS = [
-    '5.189.155.145',
+    # '5.189.155.145',
+    "epspay.pythonanywhere.com"
 ]
 
 
