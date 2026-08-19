@@ -1,4 +1,4 @@
-#!/home/eliusa/Projects/eps_pay_django/venv/bin/python3
+#!/home/eliusa/Projects/eps_pay_django/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
