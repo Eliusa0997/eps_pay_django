@@ -2,8 +2,13 @@ import requests
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
-SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"
+# SERVICE_ACCOUNT_FILE = "serviceAccountKey.json"
+import os
 
+SERVICE_ACCOUNT_FILE = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "serviceAccountKey.json"
+)
 
 
 PROJECT_ID = "epspay-bcd1f"
