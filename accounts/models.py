@@ -22,15 +22,15 @@ class Profile(models.Model):
         return str(self.user)
 
 
-    def withdraw(self, amount):
-        if amount > self.balance:
-            raise ValidationError("Insufficient funds. Cannot withdraw beyond available balance.")
-        self.balance -= amount
-        self.save()
+    # def withdraw(self, amount):
+    #     if amount > self.balance:
+    #         raise ValidationError("Insufficient funds. Cannot withdraw beyond available balance.")
+    #     self.balance -= amount
+    #     self.save()
 
-    def deposit(self, amount):
-        self.balance += amount
-        self.save()
+    # def deposit(self, amount):
+    #     self.balance += amount
+    #     self.save()
 
 
 
