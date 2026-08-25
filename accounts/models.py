@@ -21,19 +21,6 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-
-    # def withdraw(self, amount):
-    #     if amount > self.balance:
-    #         raise ValidationError("Insufficient funds. Cannot withdraw beyond available balance.")
-    #     self.balance -= amount
-    #     self.save()
-
-    # def deposit(self, amount):
-    #     self.balance += amount
-    #     self.save()
-
-
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

@@ -18,7 +18,7 @@ class TransferView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Transfer successful"},
+                {"message": "Money transferred successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -38,7 +38,7 @@ class DepositView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Deposit successful"},
+                {"message": "Money deposited successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -58,7 +58,7 @@ class WithdrawView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Withdraw successful"},
+                {"message": "Money withdrawn successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -79,7 +79,7 @@ class ElectricityView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Electricity payment successful"},
+                {"message": "Electricity bill payed successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -99,7 +99,7 @@ class WaterView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Water payment successful"},
+                {"message": "Water bill payed successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -119,7 +119,7 @@ class InternetView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Internet payment successful"},
+                {"message": "Internet bill payed successfully"},
                 status=status.HTTP_200_OK
             )
 
@@ -139,7 +139,7 @@ class MobileRechargeView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Mobile recharge successful"},
+                {"message": "Mobile recharged successfully"},
                 status=status.HTTP_200_OK
             )
     
