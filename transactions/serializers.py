@@ -32,7 +32,7 @@ class TransferSerializer(serializers.Serializer):
         amount = validated_data['amount']
 
         if sender_profile.balance < amount:
-            raise serializers.ValidationError({'detail':"Insufficient balance."})
+            raise serializers.ValidationError({'detail':"Sorry, insufficient balance."})
 
         with transaction.atomic():
 

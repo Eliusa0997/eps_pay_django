@@ -42,21 +42,21 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     timestamp = models.DateTimeField(default=timezone.now)
 
-    def save(self, *args, **kwargs):
+    # def save(self, *args, **kwargs):
 
-        if self.amount <= 0:
-            raise ValidationError("Amount must be greater than zero.")
+    #     if self.amount <= 0:
+    #         raise ValidationError("Amount must be greater than zero.")
 
-        if self.transaction_type == "deposit":
-            self.profile.balance += self.amount
+    #     if self.transaction_type == "deposit":
+    #         self.profile.balance += self.amount
 
-        elif self.transaction_type == "withdraw":
-            if self.amount > self.profile.balance:
-                raise ValidationError("Insufficient balance.")
-            self.profile.balance -= self.amount
+    #     elif self.transaction_type == "withdraw":
+    #         if self.amount > self.profile.balance:
+    #             raise ValidationError("Insufficient balance.")
+    #         self.profile.balance -= self.amount
 
-        self.profile.save()
-        super().save(*args, **kwargs)
+    #     self.profile.save()
+    #     super().save(*args, **kwargs)
 
-    def __str__(self):
-        return f"{self.transaction_type} - {self.amount}"
+    # def __str__(self):
+    #     return f"{self.transaction_type} - {self.amount}"
