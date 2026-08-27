@@ -65,7 +65,7 @@ def get_receiver_by_account_number(request):
         )
 
         data = {
-            "username": profile.user.username,
+            "username": profile.user.first_name + " " + profile.user.last_name,
             "account_number": profile.account_number,
         }
 
