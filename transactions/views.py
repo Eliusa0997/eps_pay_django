@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .serializers import TransferSerializer, DepositSerializer, WithdrawSerializer, ElectricitySerializer, WaterSerializer, InternetSerializer, MobileRechargeSerializer, TransactionSerializer, BillTransactionHistorySerializer
 from .models import Transaction
+from rest_framework.pagination import PageNumberPagination
 
 # transfer payment  
 class TransferView(APIView):
@@ -24,6 +25,30 @@ class TransferView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         print(request.data)
+
+# transaction history   
+class TransactionHistoryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        transactions = Transaction.objects.filter(
+            profile=request.user.profile
+        ).order_by("-timestamp")
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 20
+
+        result_page = paginator.paginate_queryset(
+            transactions,
+            request
+        )
+
+        serializer = TransactionSerializer(
+            result_page,
+            many=True
+        )
+
+        return paginator.get_paginated_response(serializer.data)
 
 # deposit payment                   
 class DepositView(APIView):
@@ -147,15 +172,15 @@ class MobileRechargeView(APIView):
         print(request.data)
 
 # transaction history   
-class TransactionHistoryView(APIView):
-    permission_classes = [IsAuthenticated]
+# class TransactionHistoryView(APIView):
+#     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        transactions = Transaction.objects.filter(
-            profile=request.user.profile
-        ).order_by("-timestamp")
-        serializer = TransactionSerializer(transactions, many=True)
-        return Response(serializer.data)    
+#     def get(self, request):
+#         transactions = Transaction.objects.filter(
+#             profile=request.user.profile
+#         ).order_by("-timestamp")
+#         serializer = TransactionSerializer(transactions, many=True)
+#         return Response(serializer.data)    
 
 
 # bills transactions history    
